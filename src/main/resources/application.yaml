@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: odyssey
+
+server:
+  port: 8080
+
+logging:
+  file:
+    name: logs/odyssey.log
+    path: logs
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+      total-size-cap: 100MB
+  level:
+    root: INFO
+    com.example.odyssey: DEBUG
+    # CXF SOAP message logging
+    org.apache.cxf: INFO
+    org.apache.cxf.services: INFO
+    org.apache.cxf.ext.logging: INFO
+    org.apache.wss4j: INFO
+
+efm:
+  user-service:
+    wsdl-location: classpath:wsdl/EfmUserService.wsdl
+    endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/EFMUserService.svc
+  security:
+    keystore:
+      path: classpath:certs/bitlink.pfx
+      password: ${EFM_KEYSTORE_PASSWORD}
+      type: PKCS12
+    truststore:
+      path: classpath:certs/tylerofsefmrootsha2.crt
