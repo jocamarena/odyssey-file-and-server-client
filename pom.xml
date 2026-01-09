@@ -97,6 +97,15 @@
 										<extraarg>-autoNameResolution</extraarg>
 									</extraargs>
 								</wsdlOption>
+								<wsdlOption>
+									<wsdl>${project.basedir}/src/main/resources/wsdl/CourtRecordMDEService.wsdl</wsdl>
+									<wsdlLocation>classpath:wsdl/CourtRecordMDEService.wsdl</wsdlLocation>
+									<extraargs>
+										<extraarg>-client</extraarg>
+										<extraarg>-verbose</extraarg>
+										<extraarg>-autoNameResolution</extraarg>
+									</extraargs>
+								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
 					</execution>

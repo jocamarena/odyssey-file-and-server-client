@@ -8,10 +8,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class EfmProperties {
 
     private UserService userService = new UserService();
+    private CourtRecordService courtRecordService = new CourtRecordService();
     private Security security = new Security();
 
     @Data
     public static class UserService {
+        private String wsdlLocation;
+        private String endpointUrl;
+    }
+
+    @Data
+    public static class CourtRecordService {
         private String wsdlLocation;
         private String endpointUrl;
     }
