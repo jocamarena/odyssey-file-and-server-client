@@ -30,6 +30,9 @@ efm:
   court-record-service:
     wsdl-location: classpath:wsdl/CourtRecordMDEService.wsdl
     endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/CourtRecordMDEService.svc
+  firm-service:
+    wsdl-location: classpath:wsdl/EFMFirmService.wsdl
+    endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/EFMFirmService.svc
   security:
     keystore:
       path: classpath:certs/bitlink.pfx
