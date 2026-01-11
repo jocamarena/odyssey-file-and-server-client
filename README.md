@@ -348,6 +348,74 @@ The security configuration includes:
 - Timestamp in SOAP header
 - Direct reference key identifier
 
+### WS-Security Header Example
+
+Based on the WSDL security policy (`TransportBinding` with `EndorsingSupportingTokens` using `X509Token`), the SOAP security header sent to EFM services follows this structure:
+
+```xml
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+                   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+
+      <!-- Timestamp: Required by sp:IncludeTimestamp policy -->
+      <wsu:Timestamp wsu:Id="TS-1">
+        <wsu:Created>2026-01-10T22:30:00.000Z</wsu:Created>
+        <wsu:Expires>2026-01-10T22:35:00.000Z</wsu:Expires>
+      </wsu:Timestamp>
+
+      <!-- BinarySecurityToken: X.509 certificate (base64 encoded) -->
+      <!-- Required by sp:X509Token with IncludeToken="AlwaysToRecipient" -->
+      <wsse:BinarySecurityToken
+          wsu:Id="X509-1"
+          ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"
+          EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">
+        MIIFazCCA1OgAwIBAgIUe5L...<!-- Base64 encoded X.509 certificate -->...
+      </wsse:BinarySecurityToken>
+
+      <!-- Signature: Signs the Timestamp (EndorsingSupportingTokens pattern) -->
+      <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="SIG-1">
+        <ds:SignedInfo>
+          <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+          <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+          <ds:Reference URI="#TS-1">
+            <ds:Transforms>
+              <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+            </ds:Transforms>
+            <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <ds:DigestValue>dGhpcyBpcyBhIHNhbXBsZSBkaWdlc3QgdmFsdWU=</ds:DigestValue>
+          </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>c2lnbmF0dXJlIHZhbHVlIGhlcmU=...<!-- Base64 signature -->...</ds:SignatureValue>
+        <ds:KeyInfo>
+          <wsse:SecurityTokenReference>
+            <!-- Direct reference to the BinarySecurityToken -->
+            <wsse:Reference URI="#X509-1"
+                ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+          </wsse:SecurityTokenReference>
+        </ds:KeyInfo>
+      </ds:Signature>
+
+    </wsse:Security>
+  </soap:Header>
+  <soap:Body>
+    <!-- SOAP request body -->
+  </soap:Body>
+</soap:Envelope>
+```
+
+**Key elements explained:**
+
+| Element | Purpose |
+|---------|---------|
+| `wsu:Timestamp` | Prevents replay attacks; contains creation and expiration times |
+| `wsse:BinarySecurityToken` | Contains the X.509 certificate used for signing |
+| `ds:Signature` | Digital signature over the Timestamp element |
+| `ds:Reference URI="#TS-1"` | Indicates the Timestamp is signed |
+| `wsse:SecurityTokenReference` | Links the signature to the BinarySecurityToken |
+
+> **Note:** This is a theoretical example based on the WSDL security policy. The actual values (certificate, signature, digest) are generated at runtime by Apache CXF/WSS4J.
+
 ## Apache CXF
 
 This project uses [Apache CXF](https://cxf.apache.org/) as the SOAP client framework for communicating with Tyler Technologies EFM SOAP web services. CXF provides a comprehensive implementation of JAX-WS and handles the complexities of SOAP messaging, WS-Security, and HTTP transport.
