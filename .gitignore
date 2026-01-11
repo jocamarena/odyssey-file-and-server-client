@@ -43,3 +43,7 @@ build/
 *.crt
 *.pem
 *.cert
+
+efmdocs/
+/efmdocs/
+/efmdocs/*.html
