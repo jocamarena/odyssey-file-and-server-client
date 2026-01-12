@@ -10,6 +10,7 @@ public class EfmProperties {
     private UserService userService = new UserService();
     private CourtRecordService courtRecordService = new CourtRecordService();
     private FirmService firmService = new FirmService();
+    private CodeService codeService = new CodeService();
     private Security security = new Security();
 
     @Data
@@ -28,6 +29,11 @@ public class EfmProperties {
     public static class FirmService {
         private String wsdlLocation;
         private String endpointUrl;
+    }
+
+    @Data
+    public static class CodeService {
+        private String baseUrl;
     }
 
     @Data

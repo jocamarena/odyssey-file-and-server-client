@@ -33,6 +33,8 @@ efm:
   firm-service:
     wsdl-location: classpath:wsdl/EFMFirmService.wsdl
     endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/EFMFirmService.svc
+  code-service:
+    base-url: https://california-efm-stage.tylertech.cloud/CodeService/codes
   security:
     keystore:
       path: classpath:certs/bitlink.pfx
