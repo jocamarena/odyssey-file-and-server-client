@@ -9,6 +9,7 @@ import oasis.names.tc.legalxml_courtfiling.wsdl.webservicemessagingprofile_defin
 import oasis.names.tc.legalxml_courtfiling.wsdl.webservicemessagingprofile_definitions_4_0.CourtRecordMDEService;
 import org.apache.cxf.transport.http.HTTPException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
 @ConditionalOnProperty(name = "efm.enabled", havingValue = "true", matchIfMissing = true)
 public class CourtRecordMdeServiceClient {
 
+    @Lazy
     private final CourtRecordMDEService courtRecordMdeServiceSoapClient;
 
     public EfmResponse<Map<String, Object>> getCase(GetCaseRequest request) {

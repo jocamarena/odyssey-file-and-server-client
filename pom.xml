@@ -86,47 +86,20 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>${cxf.version}</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.4.0</version>
 				<executions>
 					<execution>
-						<id>generate-sources</id>
+						<id>add-source</id>
 						<phase>generate-sources</phase>
 						<goals>
-							<goal>wsdl2java</goal>
+							<goal>add-source</goal>
 						</goals>
 						<configuration>
-							<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
-							<wsdlOptions>
-								<wsdlOption>
-									<wsdl>${project.basedir}/src/main/resources/wsdl/EfmUserService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/EfmUserService.wsdl</wsdlLocation>
-									<extraargs>
-										<extraarg>-client</extraarg>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-autoNameResolution</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<wsdlOption>
-									<wsdl>${project.basedir}/src/main/resources/wsdl/CourtRecordMDEService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/CourtRecordMDEService.wsdl</wsdlLocation>
-									<extraargs>
-										<extraarg>-client</extraarg>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-autoNameResolution</extraarg>
-									</extraargs>
-								</wsdlOption>
-								<wsdlOption>
-									<wsdl>${project.basedir}/src/main/resources/wsdl/EFMFirmService.wsdl</wsdl>
-									<wsdlLocation>classpath:wsdl/EFMFirmService.wsdl</wsdlLocation>
-									<extraargs>
-										<extraarg>-client</extraarg>
-										<extraarg>-verbose</extraarg>
-										<extraarg>-autoNameResolution</extraarg>
-									</extraargs>
-								</wsdlOption>
-							</wsdlOptions>
+							<sources>
+								<source>${project.build.directory}/generated-sources/cxf</source>
+							</sources>
 						</configuration>
 					</execution>
 				</executions>
@@ -157,5 +130,66 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>generate-sources</id>
+			<activation>
+				<property>
+					<name>!skipCodegen</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-codegen-plugin</artifactId>
+						<version>${cxf.version}</version>
+						<executions>
+							<execution>
+								<id>generate-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>wsdl2java</goal>
+								</goals>
+								<configuration>
+									<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+									<wsdlOptions>
+										<wsdlOption>
+											<wsdl>${project.basedir}/src/main/resources/wsdl/EfmUserService.wsdl</wsdl>
+											<wsdlLocation>classpath:wsdl/EfmUserService.wsdl</wsdlLocation>
+											<extraargs>
+												<extraarg>-client</extraarg>
+												<extraarg>-verbose</extraarg>
+												<extraarg>-autoNameResolution</extraarg>
+											</extraargs>
+										</wsdlOption>
+										<wsdlOption>
+											<wsdl>${project.basedir}/src/main/resources/wsdl/CourtRecordMDEService.wsdl</wsdl>
+											<wsdlLocation>classpath:wsdl/CourtRecordMDEService.wsdl</wsdlLocation>
+											<extraargs>
+												<extraarg>-client</extraarg>
+												<extraarg>-verbose</extraarg>
+												<extraarg>-autoNameResolution</extraarg>
+											</extraargs>
+										</wsdlOption>
+										<wsdlOption>
+											<wsdl>${project.basedir}/src/main/resources/wsdl/EFMFirmService.wsdl</wsdl>
+											<wsdlLocation>classpath:wsdl/EFMFirmService.wsdl</wsdlLocation>
+											<extraargs>
+												<extraarg>-client</extraarg>
+												<extraarg>-verbose</extraarg>
+												<extraarg>-autoNameResolution</extraarg>
+											</extraargs>
+										</wsdlOption>
+									</wsdlOptions>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

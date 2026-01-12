@@ -15,6 +15,7 @@ import org.apache.wss4j.common.crypto.Merlin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ResourceLoader;
 import tyler.efm.services.EfmUserService;
 import tyler.efm.services.IEfmUserService;
@@ -51,6 +52,7 @@ public class CxfClientConfig {
     private final Bus bus;
 
     @Bean
+    @Lazy
     public IEfmUserService efmUserServiceSoapClient() throws Exception {
         KeystorePasswordCallback.setKeystorePassword(efmProperties.getSecurity().getKeystore().getPassword());
         EfmUserService service = new EfmUserService();

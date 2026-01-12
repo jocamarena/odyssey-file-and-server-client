@@ -14,6 +14,7 @@ import org.apache.wss4j.common.crypto.Merlin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ResourceLoader;
 import tyler.efm.services.IEfmFirmService;
 
@@ -34,6 +35,7 @@ public class CxfFirmServiceClientConfig {
     private final ResourceLoader resourceLoader;
 
     @Bean
+    @Lazy
     public IEfmFirmService efmFirmServiceSoapClient() throws Exception {
         KeystorePasswordCallback.setKeystorePassword(efmProperties.getSecurity().getKeystore().getPassword());
 

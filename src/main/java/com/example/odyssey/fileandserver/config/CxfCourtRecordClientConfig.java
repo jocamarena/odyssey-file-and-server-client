@@ -16,6 +16,7 @@ import org.apache.wss4j.common.crypto.Merlin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class CxfCourtRecordClientConfig {
     private final ResourceLoader resourceLoader;
 
     @Bean
+    @Lazy
     public CourtRecordMDEService courtRecordMdeServiceSoapClient() throws Exception {
         KeystorePasswordCallback.setKeystorePassword(efmProperties.getSecurity().getKeystore().getPassword());
         CourtRecordMdeService_Service service = new CourtRecordMdeService_Service();

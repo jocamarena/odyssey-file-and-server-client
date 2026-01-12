@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.cxf.transport.http.HTTPException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import tyler.efm.services.IEfmUserService;
 import tyler.efm.services.schema.authenticaterequest.AuthenticateRequestType;
@@ -35,6 +36,7 @@ import java.util.Map;
 @ConditionalOnProperty(name = "efm.enabled", havingValue = "true", matchIfMissing = true)
 public class EfmUserServiceClient {
 
+    @Lazy
     private final IEfmUserService efmUserServiceClient;
 
     public EfmResponse<Map<String, Object>> authenticateUser(AuthenticateUserRequest request) {

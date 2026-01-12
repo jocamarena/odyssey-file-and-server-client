@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.cxf.transport.http.HTTPException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import tyler.efm.services.IEfmFirmService;
 import tyler.efm.services.schema.adduserrolerequest.AddUserRoleRequestType;
@@ -63,6 +64,7 @@ import tyler.efm.services.schema.userlistresponse.UserListResponseType;
 @ConditionalOnProperty(name = "efm.enabled", havingValue = "true", matchIfMissing = true)
 public class EfmFirmServiceClient {
 
+    @Lazy
     private final IEfmFirmService efmFirmServiceSoapClient;
 
     // ==================== User Operations ====================
