@@ -1,0 +1,8 @@
+efm:
+  base-url: https://california-efm-stage.tylertech.cloud
+  user-service:
+    wsdl-location: classpath:wsdl/EfmUserService.wsdl
+  court-record-service:
+    wsdl-location: classpath:wsdl/CourtRecordMDEService.wsdl
+  firm-service:
+    wsdl-location: classpath:wsdl/EFMFirmService.wsdl

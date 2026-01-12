@@ -25,16 +25,13 @@ logging:
 
 efm:
   user-service:
-    wsdl-location: classpath:wsdl/EfmUserService.wsdl
-    endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/EFMUserService.svc
+    endpoint-url: ${efm.base-url}/EFM/EFMUserService.svc
   court-record-service:
-    wsdl-location: classpath:wsdl/CourtRecordMDEService.wsdl
-    endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/CourtRecordMDEService.svc
+    endpoint-url: ${efm.base-url}/EFM/CourtRecordMDEService.svc
   firm-service:
-    wsdl-location: classpath:wsdl/EFMFirmService.wsdl
-    endpoint-url: https://california-efm-stage.tylertech.cloud/EFM/EFMFirmService.svc
+    endpoint-url: ${efm.base-url}/EFM/EFMFirmService.svc
   code-service:
-    base-url: https://california-efm-stage.tylertech.cloud/CodeService/codes
+    base-url: ${efm.base-url}/CodeService/codes
   security:
     keystore:
       path: classpath:certs/bitlink.pfx

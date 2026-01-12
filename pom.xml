@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<cxf.version>4.1.1</cxf.version>
+		<wsdl.dir>wsdl</wsdl.dir>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -133,6 +134,18 @@
 
 	<profiles>
 		<profile>
+			<id>stage</id>
+			<properties>
+				<wsdl.dir>wsdl</wsdl.dir>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<wsdl.dir>wsdlprod</wsdl.dir>
+			</properties>
+		</profile>
+		<profile>
 			<id>generate-sources</id>
 			<activation>
 				<property>
@@ -156,8 +169,8 @@
 									<sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
 									<wsdlOptions>
 										<wsdlOption>
-											<wsdl>${project.basedir}/src/main/resources/wsdl/EfmUserService.wsdl</wsdl>
-											<wsdlLocation>classpath:wsdl/EfmUserService.wsdl</wsdlLocation>
+											<wsdl>${project.basedir}/src/main/resources/${wsdl.dir}/EfmUserService.wsdl</wsdl>
+											<wsdlLocation>classpath:${wsdl.dir}/EfmUserService.wsdl</wsdlLocation>
 											<extraargs>
 												<extraarg>-client</extraarg>
 												<extraarg>-verbose</extraarg>
@@ -165,8 +178,8 @@
 											</extraargs>
 										</wsdlOption>
 										<wsdlOption>
-											<wsdl>${project.basedir}/src/main/resources/wsdl/CourtRecordMDEService.wsdl</wsdl>
-											<wsdlLocation>classpath:wsdl/CourtRecordMDEService.wsdl</wsdlLocation>
+											<wsdl>${project.basedir}/src/main/resources/${wsdl.dir}/CourtRecordMDEService.wsdl</wsdl>
+											<wsdlLocation>classpath:${wsdl.dir}/CourtRecordMDEService.wsdl</wsdlLocation>
 											<extraargs>
 												<extraarg>-client</extraarg>
 												<extraarg>-verbose</extraarg>
@@ -174,8 +187,8 @@
 											</extraargs>
 										</wsdlOption>
 										<wsdlOption>
-											<wsdl>${project.basedir}/src/main/resources/wsdl/EFMFirmService.wsdl</wsdl>
-											<wsdlLocation>classpath:wsdl/EFMFirmService.wsdl</wsdlLocation>
+											<wsdl>${project.basedir}/src/main/resources/${wsdl.dir}/EFMFirmService.wsdl</wsdl>
+											<wsdlLocation>classpath:${wsdl.dir}/EFMFirmService.wsdl</wsdlLocation>
 											<extraargs>
 												<extraarg>-client</extraarg>
 												<extraarg>-verbose</extraarg>
