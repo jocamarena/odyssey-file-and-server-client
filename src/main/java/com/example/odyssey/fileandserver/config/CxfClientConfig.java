@@ -55,7 +55,10 @@ public class CxfClientConfig {
     @Lazy
     public IEfmUserService efmUserServiceSoapClient() throws Exception {
         KeystorePasswordCallback.setKeystorePassword(efmProperties.getSecurity().getKeystore().getPassword());
-        EfmUserService service = new EfmUserService();
+
+        // Load WSDL from profile-specific location
+        var wsdlUrl = resourceLoader.getResource(efmProperties.getUserService().getWsdlLocation()).getURL();
+        EfmUserService service = new EfmUserService(wsdlUrl);
         IEfmUserService port = service.getBasicHttpBindingIEfmUserService();
 
         configureEndpoint(port);

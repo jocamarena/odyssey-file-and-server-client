@@ -24,6 +24,7 @@ logging:
     org.apache.wss4j: INFO
 
 efm:
+  base-url: https://california-efm.tylertech.cloud
   user-service:
     endpoint-url: ${efm.base-url}/EFM/EFMUserService.svc
   court-record-service:

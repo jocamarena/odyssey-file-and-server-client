@@ -39,7 +39,10 @@ public class CxfCourtRecordClientConfig {
     @Lazy
     public CourtRecordMDEService courtRecordMdeServiceSoapClient() throws Exception {
         KeystorePasswordCallback.setKeystorePassword(efmProperties.getSecurity().getKeystore().getPassword());
-        CourtRecordMdeService_Service service = new CourtRecordMdeService_Service();
+
+        // Load WSDL from profile-specific location
+        var wsdlUrl = resourceLoader.getResource(efmProperties.getCourtRecordService().getWsdlLocation()).getURL();
+        CourtRecordMdeService_Service service = new CourtRecordMdeService_Service(wsdlUrl);
         CourtRecordMDEService port = service.getBasicHttpBindingCourtRecordMDEService();
 
         configureEndpoint(port);
